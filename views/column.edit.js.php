@@ -38,7 +38,7 @@ window.tophostsmonzphere_column_edit_form = new class {
 			allow_empty: true,
 			dataCallback: row_data => {
 				if (!('color' in row_data)) {
-					const colors = this._$widget_form[0].querySelectorAll('.<?= ZBX_STYLE_COLOR_PICKER ?>');
+					const colors = this._$widget_form[0].querySelectorAll(`.${ZBX_STYLE_COLOR_PICKER}`);
 					const used_colors = [];
 
 					for (const color of colors) {
