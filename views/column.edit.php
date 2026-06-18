@@ -19,7 +19,7 @@
  * @var array $data
  */
 
-use Zabbix\Widgets\Fields\CWidgetFieldColumnsList;
+use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 $form = (new CForm())
 	->setName('tophosts_column')

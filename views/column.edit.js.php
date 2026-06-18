@@ -14,7 +14,7 @@
 **/
 
 
-use Zabbix\Widgets\Fields\CWidgetFieldColumnsList;
+use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 ?>
 

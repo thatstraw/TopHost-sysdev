@@ -23,7 +23,7 @@
 
 use Modules\TopHostsMonzphere\Widget;
 
-use Zabbix\Widgets\Fields\CWidgetFieldColumnsList;
+use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 $table = new CTableInfo();
 

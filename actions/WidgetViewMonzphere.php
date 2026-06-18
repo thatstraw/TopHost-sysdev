@@ -28,7 +28,7 @@ use API,
 	Manager;
 
 use Modules\TopHostsMonzphere\Widget;
-use Zabbix\Widgets\Fields\CWidgetFieldColumnsList;
+use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 class WidgetViewMonzphere extends CControllerDashboardWidgetView {
 

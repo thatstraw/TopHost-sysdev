@@ -25,9 +25,10 @@ use CController,
 use Zabbix\Widgets\CWidgetField;
 
 use Zabbix\Widgets\Fields\{
-	CWidgetFieldColumnsList,
 	CWidgetFieldTimePeriod
 };
+
+use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 class ColumnEditMonzphere extends CController {
 
