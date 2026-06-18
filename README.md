@@ -1,7 +1,7 @@
-# TopHostMonzphere
+# TopHostSysdev
 
 ## Adding Top Host widget sort by value functionality
-## Check out our website [Monzphere](monzphere.com) and follow us on LinkedIn
+## Sysdev custom Zabbix widget
 
 ![image](https://github.com/user-attachments/assets/3d49275d-d099-4fb0-a561-e53a4013a63a)
 
@@ -20,7 +20,6 @@
   ## Use Widget into Dashboard:
 
 ![image](https://github.com/user-attachments/assets/c3adec02-ce77-4ba1-b5ff-27120fedb61d)
-
 
 
 

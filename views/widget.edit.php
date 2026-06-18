@@ -21,7 +21,7 @@
  * @var array $data
  */
 
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsListView;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsListView;
 
 $form = new CWidgetFormView($data);
 

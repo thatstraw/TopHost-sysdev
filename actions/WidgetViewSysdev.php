@@ -14,7 +14,7 @@
 **/
 
 
-namespace Modules\TopHostsMonzphere\Actions;
+namespace Modules\TopHostsSysdev\Actions;
 
 use API,
 	CAggFunctionData,
@@ -27,10 +27,10 @@ use API,
 	CSettingsHelper,
 	Manager;
 
-use Modules\TopHostsMonzphere\Widget;
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
+use Modules\TopHostsSysdev\Widget;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsList;
 
-class WidgetViewMonzphere extends CControllerDashboardWidgetView {
+class WidgetViewSysdev extends CControllerDashboardWidgetView {
 
 	protected function doAction(): void {
 		$data = [

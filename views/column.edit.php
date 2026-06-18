@@ -19,10 +19,10 @@
  * @var array $data
  */
 
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsList;
 
 $form = (new CForm())
-	->setId('tophostsmonzphere_column_edit_form')
+	->setId('tophostssysdev_column_edit_form')
 	->setName('tophosts_column')
 	->addStyle('display: none;')
 	->addVar('action', $data['action'])
@@ -289,7 +289,7 @@ $form
 	->addItem($form_grid)
 	->addItem(
 		(new CScriptTag('
-			tophostsmonzphere_column_edit_form.init('.json_encode([
+			tophostssysdev_column_edit_form.init('.json_encode([
 				'form_id' => $form->getId(),
 				'thresholds' => $data['thresholds'],
 				'colors' => $data['thresholds_colors']
@@ -306,7 +306,7 @@ $output = [
 			'title'		=> array_key_exists('edit', $data) ? _('Update') : _('Add'),
 			'keepOpen'	=> true,
 			'isSubmit'	=> true,
-			'action'	=> 'tophostsmonzphere_column_edit_form.submit();'
+			'action'	=> 'tophostssysdev_column_edit_form.submit();'
 		]
 	]
 ];

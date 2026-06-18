@@ -6,7 +6,7 @@
 ** the GNU Affero General Public License as published by the Free Software Foundation, version 3.
 */
 
-namespace Modules\TopHostsMonzphere\Includes;
+namespace Modules\TopHostsSysdev\Includes;
 
 use CButton,
 	CCol,

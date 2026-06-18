@@ -43,10 +43,10 @@ window.widget_form = new class extends CWidgetForm {
 				this._column_index = this._list_columns.querySelectorAll('tr').length;
 
 				column_popup = PopUp(
-					'widget.tophostsmonzphere.column.edit',
+					'widget.tophostssysdev.column.edit',
 					{templateid: this._templateid},
 					{
-						dialogueid: 'tophostsmonzphere-column-edit-overlay',
+						dialogueid: 'tophostssysdev-column-edit-overlay',
 						dialogue_class: 'modal-popup-generic'
 					}
 				).$dialogue[0];
@@ -59,10 +59,10 @@ window.widget_form = new class extends CWidgetForm {
 
 				this._column_index = target.closest('tr').querySelector('[name="sortorder[columns][]"]').value;
 
-				column_popup = PopUp('widget.tophostsmonzphere.column.edit',
+				column_popup = PopUp('widget.tophostssysdev.column.edit',
 					{...form_fields.columns[this._column_index], edit: 1, templateid: this._templateid},
 					{
-						dialogueid: 'tophostsmonzphere-column-edit-overlay',
+						dialogueid: 'tophostssysdev-column-edit-overlay',
 						dialogue_class: 'modal-popup-generic'
 					}
 				).$dialogue[0];

@@ -1,14 +1,14 @@
-.sortable-monzphere {
+.sortable-sysdev {
 	cursor: pointer;
 	position: relative;
 	padding-right: 20px;
 }
 
-.sortable-monzphere:hover {
+.sortable-sysdev:hover {
 	background-color: #f5f5f5;
 }
 
-.sortable-monzphere::after {
+.sortable-sysdev::after {
 	content: '⇅';
 	position: absolute;
 	right: 8px;
@@ -18,12 +18,12 @@
 	font-size: 14px;
 }
 
-.sortable-monzphere.sort-asc::after {
+.sortable-sysdev.sort-asc::after {
 	content: '↑';
 	opacity: 1;
 }
 
-.sortable-monzphere.sort-desc::after {
+.sortable-sysdev.sort-desc::after {
 	content: '↓';
 	opacity: 1;
 }

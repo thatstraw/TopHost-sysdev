@@ -14,7 +14,7 @@
 **/
 
 
-namespace Modules\TopHostsMonzphere\Includes;
+namespace Modules\TopHostsSysdev\Includes;
 
 use Zabbix\Widgets\{
 	CWidgetField,
@@ -32,7 +32,7 @@ use Zabbix\Widgets\Fields\{
 	CWidgetFieldTags
 };
 
-use Modules\TopHostsMonzphere\Widget;
+use Modules\TopHostsSysdev\Widget;
 
 /**
  * Top hosts data widget form.

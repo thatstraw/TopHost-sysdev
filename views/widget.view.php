@@ -21,9 +21,9 @@
  * @var array $data
  */
 
-use Modules\TopHostsMonzphere\Widget;
+use Modules\TopHostsSysdev\Widget;
 
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsList;
 
 $table = new CTableInfo();
 
@@ -38,19 +38,19 @@ else {
 			if ($column_config['display'] == CWidgetFieldColumnsList::DISPLAY_AS_IS) {
 				$header[] = (new CColHeader($column_config['name']))
 					->addClass(ZBX_STYLE_CENTER)
-					->addClass('sortable-monzphere')
+					->addClass('sortable-sysdev')
 					->setAttribute('data-column', $column_index);
 			}
 			else {
 				$header[] = (new CColHeader($column_config['name']))
 					->setColSpan(2)
-					->addClass('sortable-monzphere')
+					->addClass('sortable-sysdev')
 					->setAttribute('data-column', $column_index);
 			}
 		}
 		else {
 			$header[] = (new CColHeader($column_config['name']))
-				->addClass('sortable-monzphere')
+				->addClass('sortable-sysdev')
 				->setAttribute('data-column', $column_index);
 		}
 	}

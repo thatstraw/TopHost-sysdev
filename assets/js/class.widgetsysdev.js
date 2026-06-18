@@ -11,7 +11,7 @@
 ** You should have received a copy of the GNU Affero General Public License along with this program.
 ** If not, see <https://www.gnu.org/licenses/>.
 **/
-class CWidgetTopHostsMonzphere extends CWidget {
+class CWidgetTopHostsSysdev extends CWidget {
 	/**
 	 * Table body of top hosts.
 	 *
@@ -44,7 +44,7 @@ class CWidgetTopHostsMonzphere extends CWidget {
 			this.#table_body.addEventListener('click', e => this.#onTableBodyClick(e));
 			
 
-			const headers = this._contents.querySelectorAll('.sortable-monzphere');
+			const headers = this._contents.querySelectorAll('.sortable-sysdev');
 			headers.forEach(header => {
 				header.addEventListener('click', e => this.#onHeaderClick(e));
 			});
@@ -85,7 +85,7 @@ class CWidgetTopHostsMonzphere extends CWidget {
 			this.#current_sort.order = 'asc';
 		}
 
-		this._contents.querySelectorAll('.sortable-monzphere').forEach(h => {
+		this._contents.querySelectorAll('.sortable-sysdev').forEach(h => {
 			h.classList.remove('sort-asc', 'sort-desc');
 		});
 

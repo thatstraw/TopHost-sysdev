@@ -1,15 +1,14 @@
 {
 	"manifest_version": 2.0,
-	"id": "tophostsmonzphere",
+	"id": "tophostssysdev",
 	"type": "widget",
-	"name": "Top hosts Monzphere",
-	"namespace": "TopHostsMonzphere",
-	"version": "1.0",
-	"author": "Monzphere",
+	"name": "Top hosts Sysdev",
+	"namespace": "TopHostsSysdev",
+	"version": "2.0",
+	"author": "Sysdev",
 	"description": "Displays top N hosts that have the highest or the lowest item value (for example, CPU load) with an option to add progress-bar visualizations and customize report columns.",
-	"url": "monzphere.com",
 	"widget": {
-		"js_class": "CWidgetTopHostsMonzphere",
+		"js_class": "CWidgetTopHostsSysdev",
 		"in": {
 			"hostids": {
 				"type": "_hostids"
@@ -28,17 +27,17 @@
 		]
 	},
 	"actions": {
-		"widget.tophostsmonzphere.view": {
-			"class": "WidgetViewMonzphere"
+		"widget.tophostssysdev.view": {
+			"class": "WidgetViewSysdev"
 		},
-		"widget.tophostsmonzphere.column.edit": {
-			"class": "ColumnEditMonzphere",
+		"widget.tophostssysdev.column.edit": {
+			"class": "ColumnEditSysdev",
 			"view": "column.edit",
 			"layout": "layout.json"
 		}
 	},
 	"assets": {
-		"js": ["class.widgetmonzphere.js"],
-		"css": ["widget.monzphere.css"]
+		"js": ["class.widgetsysdev.js"],
+		"css": ["widget.sysdev.css"]
 	}
 }

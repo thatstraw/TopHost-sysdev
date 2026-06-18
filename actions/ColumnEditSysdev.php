@@ -14,7 +14,7 @@
 **/
 
 
-namespace Modules\TopHostsMonzphere\Actions;
+namespace Modules\TopHostsSysdev\Actions;
 
 use CController,
 	CControllerResponseData,
@@ -28,9 +28,9 @@ use Zabbix\Widgets\Fields\{
 	CWidgetFieldTimePeriod
 };
 
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsList;
 
-class ColumnEditMonzphere extends CController {
+class ColumnEditSysdev extends CController {
 
 	protected function init(): void {
 		$this->disableCsrfValidation();

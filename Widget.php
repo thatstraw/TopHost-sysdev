@@ -14,7 +14,7 @@
 **/
 
 
-namespace Modules\TopHostsMonzphere;
+namespace Modules\TopHostsSysdev;
 
 use Zabbix\Core\CWidget;
 
@@ -26,6 +26,6 @@ class Widget extends CWidget {
 	public const ORDER_BOTTOM_N = 3;
 
 	public function getDefaultName(): string {
-		return _('Top hosts Monzphere');
+		return _('Top hosts Sysdev');
 	}
 }

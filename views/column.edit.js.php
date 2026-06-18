@@ -14,14 +14,14 @@
 **/
 
 
-use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
+use Modules\TopHostsSysdev\Includes\CWidgetFieldColumnsList;
 
 ?>
 
-window.tophostsmonzphere_column_edit_form = new class {
+window.tophostssysdev_column_edit_form = new class {
 
 	init({form_id, thresholds, colors}) {
-		this._overlay = overlays_stack.getById('tophostsmonzphere-column-edit-overlay');
+		this._overlay = overlays_stack.getById('tophostssysdev-column-edit-overlay');
 		this._dialogue = this._overlay.$dialogue[0];
 		this._$widget_form = $(`#${form_id}`);
 
