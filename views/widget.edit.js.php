@@ -15,10 +15,10 @@
 ?>
 
 
-window.widget_tophosts_form = new class {
+window.widget_form = new class extends CWidgetForm {
 
 	init({templateid}) {
-		this._form = document.getElementById('widget-dialogue-form');
+		this._form = this.getForm();
 		this._templateid = templateid;
 
 		this._list_columns = document.getElementById('list_columns');
@@ -26,9 +26,11 @@ window.widget_tophosts_form = new class {
 		new CSortable(this._list_columns.querySelector('tbody'), {
 			selector_handle: 'div.<?= ZBX_STYLE_DRAG_ICON ?>',
 			freeze_end: 1
-		});
+		})
+			.on(CSortable.EVENT_SORT, () => this.registerUpdateEvent());
 
 		this._list_columns.addEventListener('click', (e) => this.processColumnsAction(e));
+		this.ready();
 	}
 
 	processColumnsAction(e) {
@@ -41,9 +43,12 @@ window.widget_tophosts_form = new class {
 				this._column_index = this._list_columns.querySelectorAll('tr').length;
 
 				column_popup = PopUp(
-					'widget.tophosts.column.edit',
+					'widget.tophostsmonzphere.column.edit',
 					{templateid: this._templateid},
-					{dialogue_class: 'modal-popup-generic'}
+					{
+						dialogueid: 'tophostsmonzphere-column-edit-overlay',
+						dialogue_class: 'modal-popup-generic'
+					}
 				).$dialogue[0];
 				column_popup.addEventListener('dialogue.submit', (e) => this.updateColumns(e));
 				column_popup.addEventListener('dialogue.close', this.removeColorpicker);
@@ -54,15 +59,20 @@ window.widget_tophosts_form = new class {
 
 				this._column_index = target.closest('tr').querySelector('[name="sortorder[columns][]"]').value;
 
-				column_popup = PopUp('widget.tophosts.column.edit',
-					{...form_fields.columns[this._column_index], edit: 1, templateid: this._templateid}).$dialogue[0];
+				column_popup = PopUp('widget.tophostsmonzphere.column.edit',
+					{...form_fields.columns[this._column_index], edit: 1, templateid: this._templateid},
+					{
+						dialogueid: 'tophostsmonzphere-column-edit-overlay',
+						dialogue_class: 'modal-popup-generic'
+					}
+				).$dialogue[0];
 				column_popup.addEventListener('dialogue.submit', (e) => this.updateColumns(e));
 				column_popup.addEventListener('dialogue.close', this.removeColorpicker);
 				break;
 
 			case 'remove':
 				target.closest('tr').remove();
-				ZABBIX.Dashboard.reloadWidgetProperties();
+				this.reload();
 				break;
 		}
 	}
@@ -114,7 +124,7 @@ window.widget_tophosts_form = new class {
 			this._form.appendChild(input.cloneNode());
 		}
 
-		ZABBIX.Dashboard.reloadWidgetProperties();
+		this.reload();
 	}
 
 	// Need to remove function after sub-popups auto close.

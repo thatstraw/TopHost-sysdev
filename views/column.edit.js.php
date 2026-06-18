@@ -18,30 +18,32 @@ use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 ?>
 
-window.tophosts_column_edit_form = new class {
+window.tophostsmonzphere_column_edit_form = new class {
 
-	init({form_name, thresholds, thresholds_colors}) {
-		this._$widget_form = $(`form[name="${form_name}"]`);
+	init({form_id, thresholds, colors}) {
+		this._overlay = overlays_stack.getById('tophostsmonzphere-column-edit-overlay');
+		this._dialogue = this._overlay.$dialogue[0];
+		this._$widget_form = $(`#${form_id}`);
 
 		this._$thresholds_table = this._$widget_form.find('#thresholds_table');
 
 		$('[name="data"], [name="aggregate_function"], [name="display"], [name="history"]', this._$widget_form)
 			.on('change', () => this._update());
 
-		colorPalette.setThemeColors(thresholds_colors);
+		colorPalette.setThemeColors(colors);
 
 		this._$thresholds_table.dynamicRows({
 			rows: thresholds,
 			template: '#thresholds-row-tmpl',
 			allow_empty: true,
-			dataCallback: (row_data) => {
+			dataCallback: row_data => {
 				if (!('color' in row_data)) {
-					const colors = this._$widget_form[0].querySelectorAll('.<?= ZBX_STYLE_COLOR_PICKER ?> input');
+					const colors = this._$widget_form[0].querySelectorAll('.<?= ZBX_STYLE_COLOR_PICKER ?>');
 					const used_colors = [];
 
 					for (const color of colors) {
-						if (color.value !== '') {
-							used_colors.push(color.value);
+						if (color.color !== '') {
+							used_colors.push(color.color);
 						}
 					}
 
@@ -50,41 +52,32 @@ window.tophosts_column_edit_form = new class {
 			}
 		});
 
-		$('tr.form_row input[name$="[color]"]', this._$thresholds_table).each((i, colorpicker) => {
-			$(colorpicker).colorpicker({appendTo: $(colorpicker).closest('.input-color-picker')});
-		});
-
 		this._$thresholds_table
-			.on('afteradd.dynamicRows', e => {
-				const $colorpicker = $('tr.form_row:last input[name$="[color]"]', e.target);
-
-				$colorpicker.colorpicker({appendTo: $colorpicker.closest('.input-color-picker')});
-
-				this._update();
-			})
+			.on('afteradd.dynamicRows', () => this._update())
 			.on('afterremove.dynamicRows', () => this._update());
 
-		this._$widget_form[0].addEventListener('change', (e) => e.target.value = e.target.value.trim(),
-			{capture: true}
-		);
+		this._$widget_form[0].addEventListener('change', ({target}) => {
+			if (target.matches('[type="text"]')) {
+				target.value = target.value.trim();
+			}
+		});
 
 		// Initialize form elements accessibility.
 		this._update();
 
 		this._$widget_form[0].style.display = '';
-		this._$widget_form[0].querySelector('[name="name"]').focus();
-
-		this._$widget_form.on('process.form', (e, overlay) => {
-			this.handleFormSubmit(e, overlay);
-		});
+		this._overlay.recoverFocus();
 	}
 
 	_update() {
-		const display_as_is = ($('[name="display"]:checked').val() == <?= CWidgetFieldColumnsList::DISPLAY_AS_IS ?>);
-		const history_data_trends = ($('[name="history"]:checked').val() ==
+		const display_as_is = ($('[name="display"]:checked', this._$widget_form).val() ==
+			<?= CWidgetFieldColumnsList::DISPLAY_AS_IS ?>);
+		const history_data_trends = ($('[name="history"]:checked', this._$widget_form).val() ==
 			<?= CWidgetFieldColumnsList::HISTORY_DATA_TRENDS ?>);
-		const data_item_value = ($('[name="data"]').val() == <?= CWidgetFieldColumnsList::DATA_ITEM_VALUE ?>);
-		const data_text = ($('[name="data"]').val() == <?= CWidgetFieldColumnsList::DATA_TEXT ?>);
+		const data_item_value = ($('[name="data"]', this._$widget_form).val() ==
+			<?= CWidgetFieldColumnsList::DATA_ITEM_VALUE ?>);
+		const data_text = ($('[name="data"]', this._$widget_form).val() ==
+			<?= CWidgetFieldColumnsList::DATA_TEXT ?>);
 		const aggregate_function = parseInt(document.getElementById('aggregate_function').value);
 
 		$('#item', this._$widget_form).multiSelect(data_item_value ? 'enable' : 'disable');
@@ -125,9 +118,12 @@ window.tophosts_column_edit_form = new class {
 		});
 	}
 
-	handleFormSubmit(e, overlay) {
-		const curl = new Curl(e.target.getAttribute('action'));
-		const fields = getFormFields(e.target);
+	submit() {
+		const form = this._$widget_form[0];
+		const curl = new Curl(form.getAttribute('action'));
+		const fields = getFormFields(form);
+
+		this._overlay.setLoading();
 
 		fetch(curl.getUrl(), {
 			method: 'POST',
@@ -140,9 +136,9 @@ window.tophosts_column_edit_form = new class {
 					throw {error: response.error};
 				}
 
-				overlayDialogueDestroy(overlay.dialogueid);
+				overlayDialogueDestroy(this._overlay.dialogueid);
 
-				overlay.$dialogue[0].dispatchEvent(new CustomEvent('dialogue.submit', {detail: response}));
+				this._dialogue.dispatchEvent(new CustomEvent('dialogue.submit', {detail: response}));
 			})
 			.catch((exception) => {
 				const form = this._$widget_form[0];
@@ -168,7 +164,7 @@ window.tophosts_column_edit_form = new class {
 				form.parentNode.insertBefore(message_box, form);
 			})
 			.finally(() => {
-				overlay.unsetLoading();
+				this._overlay.unsetLoading();
 			});
 	}
 };

@@ -78,15 +78,10 @@ class ColumnEditMonzphere extends CController {
 		}
 
 		$input = $this->getInputAll();
+		unset($input['edit'], $input['update'], $input['templateid']);
 
 		$field = new CWidgetFieldColumnsList('columns', '');
-
-		if (!$this->hasInput('edit') && !$this->hasInput('update')) {
-			$input += self::getColumnDefaults();
-		}
-
-		unset($input['edit'], $input['update'], $input['templateid']);
-		$field->setValue([$input]);
+		$field->setValue([$input + self::getColumnDefaults()]);
 
 		$errors = $field->validate(true);
 		array_map('error', $errors);

@@ -22,6 +22,7 @@
 use Modules\TopHostsMonzphere\Includes\CWidgetFieldColumnsList;
 
 $form = (new CForm())
+	->setId('tophostsmonzphere_column_edit_form')
 	->setName('tophosts_column')
 	->addStyle('display: none;')
 	->addVar('action', $data['action'])
@@ -104,7 +105,7 @@ else {
 $item_select = (new CPatternSelect([
 	'name' => 'item',
 	'object_name' => 'items',
-	'data' => $data['item'] === '' ? '' : [$data['item']],
+	'data' => $data['item'] === '' ? [] : [$data['item']],
 	'multiple' => false,
 	'popup' => [
 		'parameters' => $parameters
@@ -161,7 +162,11 @@ $form_grid->addItem([
 // Base color.
 $form_grid->addItem([
 	new CLabel(_('Base color'), 'lbl_base_color'),
-	new CFormField(new CColor('base_color', $data['base_color']))
+	new CFormField(
+		(new CColorPicker('base_color'))
+			->setColor($data['base_color'])
+			->allowEmpty()
+	)
 ]);
 
 // Thresholds table.
@@ -171,7 +176,7 @@ $header_row = [
 	_('Action')
 ];
 
-$thresholds = (new CDiv(
+$thresholds = (new CDiv([
 	(new CTable())
 		->setId('thresholds_table')
 		->addClass(ZBX_STYLE_TABLE_FORMS)
@@ -180,15 +185,12 @@ $thresholds = (new CDiv(
 			(new CCol(
 				(new CButtonLink(_('Add')))->addClass('element-table-add')
 			))->setColSpan(count($header_row))
-		))
-))
-	->addClass('table-forms-separator')
-	->setWidth(ZBX_TEXTAREA_STANDARD_WIDTH);
-
-$thresholds->addItem(
+		)),
 	(new CTemplateTag('thresholds-row-tmpl'))
 		->addItem((new CRow([
-			(new CColor('thresholds[#{rowNum}][color]', '#{color}'))->appendColorPickerJs(false),
+			(new CColorPicker('thresholds[#{rowNum}][color]'))
+				->setColor('#{color}')
+				->allowEmpty(),
 			(new CTextBox('thresholds[#{rowNum}][threshold]', '#{threshold}', false))
 				->setWidth(ZBX_TEXTAREA_TINY_WIDTH)
 				->setAriaRequired(),
@@ -196,7 +198,9 @@ $thresholds->addItem(
 				->addClass(ZBX_STYLE_BTN_LINK)
 				->addClass('element-table-remove')
 		]))->addClass('form_row'))
-);
+]))
+	->addClass('table-forms-separator')
+	->setWidth(ZBX_TEXTAREA_STANDARD_WIDTH);
 
 $form_grid->addItem([
 	new CLabel([
@@ -285,10 +289,10 @@ $form
 	->addItem($form_grid)
 	->addItem(
 		(new CScriptTag('
-			tophosts_column_edit_form.init('.json_encode([
-				'form_name' => $form->getName(),
+			tophostsmonzphere_column_edit_form.init('.json_encode([
+				'form_id' => $form->getId(),
 				'thresholds' => $data['thresholds'],
-				'thresholds_colors' => $data['thresholds_colors']
+				'colors' => $data['thresholds_colors']
 			], JSON_THROW_ON_ERROR).');
 		'))->setOnDocumentReady()
 	);
@@ -302,7 +306,7 @@ $output = [
 			'title'		=> array_key_exists('edit', $data) ? _('Update') : _('Add'),
 			'keepOpen'	=> true,
 			'isSubmit'	=> true,
-			'action'	=> '$(document.forms.tophosts_column).trigger("process.form", [overlay])'
+			'action'	=> 'tophostsmonzphere_column_edit_form.submit();'
 		]
 	]
 ];
